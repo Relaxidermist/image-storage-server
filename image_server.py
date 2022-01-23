@@ -17,6 +17,7 @@ def serve_landing_page():
 def serve_about_page():
     return render_template('about.html')
 
+#TODO Need to not have the path hardcoded in
 @app.route("/upload", methods=["GET","POST"])
 def serve_upload_page():
     if request.method == "GET":
@@ -28,8 +29,14 @@ def serve_upload_page():
 
 @app.route("/gallery")
 def serve_update_page():
+    """
+    Serve a grid of photos that are in the upload folder
+    """
     return render_template('gallery.html')
 
 @app.route("/contact")
 def serve_contact_page():
+    """
+    blah blah
+    """
     return render_template('contact.html')
