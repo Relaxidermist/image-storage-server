@@ -4,7 +4,7 @@ from flask import Flask, render_template_string, request
 from flask import render_template
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = '/home/ingram/Pictures/slideshow/'
+UPLOAD_FOLDER = '/home/pi/Pictures/slideshow/'
 
 app = Flask(__name__, static_folder=UPLOAD_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -39,7 +39,7 @@ def serve_update_page():
     for f in files:
         img_src = "\"{{{{url_for('static', filename = '{}')}}}}\"".format(f)
         p = p + " <image src =" + img_src + " height=\"240\"/>"
-        button = "<form action=\"http://localhost:5000/delete/{}\"><button type=\"submit\">Delete {}</button></form>"
+        button = "<form action=\"/delete/{}\"><button type=\"submit\">Delete {}</button></form>"
         p = p + button.format(f, f)
         
     p = '<!DOCTYPE html> <html><body> ' + p + '</body></html>'
