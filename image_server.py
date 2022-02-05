@@ -1,9 +1,10 @@
+from fileinput import filename
 import os
 from flask import Flask, render_template_string, request
 from flask import render_template
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = '/home/pi/Pictures/slideshow/'
+UPLOAD_FOLDER = '/home/ingram/Pictures/slideshow/'
 
 app = Flask(__name__, static_folder=UPLOAD_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -45,9 +46,14 @@ def serve_update_page():
 
     return render_template_string(p)
 
-@app.route("/contact")
-def serve_contact_page():
-    """
-    blah blah
-    """
-    return render_template('contact.html')
+@app.route("/delete/<filename>")
+def delete_image(filename):
+    try:
+        path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        app.logger.info(path)
+        os.remove(path)
+        response = "<p>" + filename + " deleted</p>"
+    except FileNotFoundError:
+        response = "<p>" + filename + " not found</p>"
+    
+    return response
