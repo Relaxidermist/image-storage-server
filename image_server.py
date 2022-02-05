@@ -39,6 +39,8 @@ def serve_update_page():
     for f in files:
         img_src = "\"{{{{url_for('static', filename = '{}')}}}}\"".format(f)
         p = p + " <image src =" + img_src + " height=\"240\"/>"
+        button = "<form action=\"http://localhost:5000/delete/{}\"><button type=\"submit\">Delete {}</button></form>"
+        p = p + button.format(f, f)
         
     p = '<!DOCTYPE html> <html><body> ' + p + '</body></html>'
 
